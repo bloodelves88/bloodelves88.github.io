@@ -1,6 +1,8 @@
 ---
 layout: post
 title: How To Upgrade PostgreSQL RDS Without Downtime (Almost)
+tags:
+  - aws
 ---
 
 ## The Story
