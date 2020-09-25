@@ -30,7 +30,7 @@ chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 kubectl version --client
 ```
-In case the commands do not work or if you are using a different OS, refer to the guide here: https://kubernetes.io/docs/tasks/tools/install-kubectl/
+In case the commands do not work or if you are using a different OS, refer to the guide here: [https://kubernetes.io/docs/tasks/tools/install-kubectl/](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
 ### awscli:
 ```bash
@@ -41,15 +41,15 @@ sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
 # Configure the awscli, you need your access ID and access key from AWS IAM
 aws configure
 ```
-In case the commands do not work or if you are using a different OS, refer to the guides here: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv1.html
+In case the commands do not work or if you are using a different OS, refer to the guides here: [https://docs.aws.amazon.com/cli/latest/userguide/install-cliv1.html](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv1.html)
 
 ### EKS Cluster
-Just create a cluster from the web console here: https://console.aws.amazon.com/eks/home
+Just create a cluster from the web console here: [https://console.aws.amazon.com/eks/home](https://console.aws.amazon.com/eks/home)
 
-Create a node group as well. A node group is a collection of EC2 or Fargate instances that your pods will be deployed on. The size of the EC2 will determine how many pods you can have deployed. Refer to this to see how many pods each instance size supports: https://github.com/awslabs/amazon-eks-ami/blob/master/files/eni-max-pods.txt
+Create a node group as well. A node group is a collection of EC2 or Fargate instances that your pods will be deployed on. The size of the EC2 will determine how many pods you can have deployed. Refer to this to see how many pods each instance size supports: [https://github.com/awslabs/amazon-eks-ami/blob/master/files/eni-max-pods.txt](https://github.com/awslabs/amazon-eks-ami/blob/master/files/eni-max-pods.txt)
 
 ### ECR Repository
-Create a repository to store your Docker images here: https://console.aws.amazon.com/ecr/home
+Create a repository to store your Docker images here: [https://console.aws.amazon.com/ecr/home](https://console.aws.amazon.com/ecr/home)
 
 ## Docker Image Build and Upload
 Replace the variables with your desired values
@@ -188,7 +188,10 @@ spec:
         ports:
         - containerPort: 3000
           protocol: TCP
-        # I strongly recommend that you put these probes in, so that the pod will show up with errors if there is an issue. Your pod can look healthy without these probes, even if it is not. These probes also restart the container if it fails.
+        # I strongly recommend that you put these probes in,
+        # so that the pod will show up with errors if there is an issue.
+        # Your pod can look healthy without these probes, even if it is not.
+        # These probes also restart the container if it fails.
         readinessProbe:
           tcpSocket:
             port: 3000
@@ -200,7 +203,9 @@ spec:
           initialDelaySeconds: 15
           periodSeconds: 20
         env:
-        # secretKeyRef refers to a secret. Do this to pass secrets to your container without exposing your secret in your code repository or in the image itself.
+        # secretKeyRef refers to a secret. Do this to pass secrets
+        # to your container without exposing your secret in your
+        # code repository or in the image itself.
         # kubectl apply secret generic database --from-literal="DATABASE_USERNAME=my-username"
         - name: DATABASE_USERNAME
           valueFrom:
@@ -212,7 +217,8 @@ spec:
         - name: config-volume
           mountPath: "/docker_workdir/config.yaml"
           subPath: config.yaml
-      # initContainers will run before the main container. Use these to do any initialization that has to run before your app
+      # initContainers will run before the main container. Use these
+      # to do any initialization that has to run before your app
       initContainers:
       - name: my-init-container
         image: your-image-url
@@ -230,14 +236,19 @@ spec:
         - name: config-volume
           mountPath: "/docker_workdir/config.yaml"
           subPath: config.yaml
-      # Refers to a configmap created from the following command. Use this to pass in configurations during the deployment process.
+      # Refers to a configmap created from the following command.
+      # Use this to pass in configurations during the deployment process.
       # kubectl create configmap my-config --from-file=config.yaml
       volumes:
       - name: config-volume
         configMap:
           name: my-config
-      # Use this to deploy this pod on a specific node. Do this if you want to segregate your deployments into specific nodes instead of having them all mixed up together
-      # This node selector depends on the Kubernetes labels on the node group, so you need to define them on EKS
+      # Use this to deploy this pod on a specific node.
+      # Do this if you want to segregate your deployments into
+      # specific nodes instead of having them all mixed up together.
+
+      # This node selector depends on the Kubernetes labels
+      # on the node group, so you need to define them on EKS.
       nodeSelector:
         Name: some-name
 
