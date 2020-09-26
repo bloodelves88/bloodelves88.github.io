@@ -1,6 +1,6 @@
 ---
 layout: post
-title: A Quick Crash Course for Kubernetes on EKS
+title: A Quick Crash Course for Setting Up Kubernetes on EKS
 tags:
   - kubernetes
   - eks
@@ -341,6 +341,45 @@ spec:
             Name: some-name
           restartPolicy: OnFailure
 
+```
+
+## Other Tricks
+### Edit an existing resource
+```bash
+kubectl edit resource/resource_name
+```
+
+Example:
+```bash
+kubectl edit deployments/my-deployment
+```
+
+### Run shell in a container
+```bash
+kubectl exec -it pod_name /bin/bash
+```
+
+If you have multiple containers on a pod:
+```bash
+kubectl exec -it pod_name -c container_name /bin/bash
+```
+
+### View Logs of a Pod
+```bash
+kubectl logs pod_name
+```
+
+### View Your Rollout History
+This will only record `kubectl set image` changes, unless you add the `--record=true` flag during `kubectl create`
+
+```bash
+kubectl rollout history deployment/my-deployment
+```
+
+### Rollback to a previous deployment
+```bash
+kubectl rollout undo deployment/my-deployment
+kubectl rollout undo deployment/my-deployment --to-revision=xx
 ```
 
 ## That's It!
