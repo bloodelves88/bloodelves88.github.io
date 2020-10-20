@@ -104,7 +104,7 @@ data:
         - system:masters
 ```
 
-Save the close the file.
+Save and close the file. Then run the following command:
 
 ```bash
 # This USER is the IAM username of the person who wants to perform kubectl commands
