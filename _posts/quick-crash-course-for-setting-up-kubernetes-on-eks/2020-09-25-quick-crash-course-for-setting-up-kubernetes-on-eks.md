@@ -367,6 +367,9 @@ kubectl exec -it pod_name -c container_name /bin/bash
 ### View Logs of a Pod
 ```bash
 kubectl logs pod_name
+
+# If you have multiple containers in a pod
+kubectl logs pod_name container_name
 ```
 
 ### View Your Rollout History
@@ -380,6 +383,15 @@ kubectl rollout history deployment/my-deployment
 ```bash
 kubectl rollout undo deployment/my-deployment
 kubectl rollout undo deployment/my-deployment --to-revision=xx
+```
+
+### Restart a resource
+Sometimes, you just need to restart something, and this is how to do it. It will be usually used to restart a deployment, which will restart the pods. This is a rolling restart, so no worries about downtime.
+
+Sometimes, you will need to do this to refresh the configuration files like the configmap.
+
+```bash
+kubectl rollout restart deployment my-deployment
 ```
 
 ## That's It!
