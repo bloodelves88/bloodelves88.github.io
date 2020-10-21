@@ -356,7 +356,7 @@ kubectl edit deployments/my-deployment
 
 ### Run shell in a container
 ```bash
-kubectl exec -it pod_name /bin/bash
+kubectl exec -it pod_name -- /bin/bash
 ```
 
 If you have multiple containers on a pod:
