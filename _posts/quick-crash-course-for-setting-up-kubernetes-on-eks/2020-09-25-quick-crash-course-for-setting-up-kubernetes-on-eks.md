@@ -391,15 +391,17 @@ So, the URL you call would be `http://172.20.123.123:8080`. The problem with thi
 ### Auto Scaling
 I will go through two types of auto scaling. Horizontal pod scaling, and horizontal node scaling.
 
-*Horizontal Node Scaling*
+**Horizontal Node Scaling**
+
 This basically scales your node group up or down, depending on the number of pods you have. It will also rearrange the pods on your nodes so as the even them out, or reduce the number of nodes used.
 
-This is done by AWS EKS. The guide is here: https://docs.aws.amazon.com/eks/latest/userguide/cluster-autoscaler.html
+This is done by AWS EKS. The guide is here: [https://docs.aws.amazon.com/eks/latest/userguide/cluster-autoscaler.html](https://docs.aws.amazon.com/eks/latest/userguide/cluster-autoscaler.html)
 
-*Horizontal Pod Scaling*
+**Horizontal Pod Scaling**
+
 This adds and removes pods from your deployment depending on the metrics that you set. It works with CPU and memory metrics out of the box, and you can use other custom metrics.
 
-The guide for this is here: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/
+The guide for this is here: [https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 
 The horizontal pod autoscaler requires the Kubernetes Metrics Server to be installed and running, but EKS does not have this by default. You need to install it by running the following command:
 
@@ -411,7 +413,7 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/down
 kubectl get deployment metrics-server -n kube-system
 ```
 
-Next, you will need to set a CPU or memory request in your deployment manifest. It's seen in the [Deployments](#deployments) section above, but here's the snippet:
+Next, you will need to set a CPU or memory request in your deployment manifest. It's seen in the Deployments section above, but here's the snippet:
 
 ```bash
 # CPU limits for the container. The values are in CPU units. If your node has 2 vCPUs/cores,
@@ -442,7 +444,7 @@ There are a lot of other things you can do with the autoscaler, but I'm just goi
 Some other pieces of knowledge that would be useful to know about the autoscaler:
 - The default cooldown for scaling up is 0 seconds.
 - The default cooldown for scaling down is 300 seconds.
-- A full explanation of how the autoscaler works is here: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
+- A full explanation of how the autoscaler works is here: [https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)
 
 ## Other Tricks
 ### Edit an existing resource
@@ -498,7 +500,7 @@ kubectl rollout restart deployment my-deployment
 ### Update an existing resource
 So you tweaked your deployment a little, how do you update it?
 
-You can use apply: `kubectl apply -f ./my-deployment.yaml`, but this only works for certain resources, and you might also get a warning like this (the command will still work):
+You can use apply: `kubectl apply -f ./my-deployment.yaml`, but this only works for certain resources, and you might also get a warning like this (but the command will still work):
 
 > Warning: kubectl apply should be used on resource created by either kubectl create --save-config or kubectl apply
 
