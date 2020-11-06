@@ -464,7 +464,7 @@ kubectl exec -it pod_name -- /bin/bash
 
 If you have multiple containers on a pod:
 ```bash
-kubectl exec -it pod_name -c container_name /bin/bash
+kubectl exec -it pod_name -c container_name -- /bin/bash
 ```
 
 ### View Logs of a Pod
